@@ -11,7 +11,7 @@ install:
   - ./emsdk activate latest
   - cd ..
   - source ./emsdk/emsdk_env.sh
-  - npm run build
+  - npm run build-release
 
 script:
 - |
