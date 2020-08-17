@@ -35,8 +35,11 @@ int lg2_create_branch(git_repository *repo, int argc, char **argv) {
 	git_oid oid_parent_commit;
 	git_reference *head = NULL;
 	int err = 0;
+	git_remote* remote = NULL;
+
 
 	char *origin_name;
+	char *ref_spec;
 
 	/* Validate args */
 	if (argc <= 1) {
@@ -66,7 +69,27 @@ int lg2_create_branch(git_repository *repo, int argc, char **argv) {
 	
 	check_lg2(git_reference_symbolic_create(&head, repo, "HEAD", git_reference_name(branch_out), 1, "Switching to new branch"), "Failed pointing HEAD at new branch", NULL);
 
-	check_lg2(git_branch_set_upstream(&branch_out, origin_name), "Failed setting upstream branch", NULL);
+     // get the remote.
+     check_lg2(git_remote_lookup( &remote, repo, "origin" ), "Failed looking up remote", NULL);
+
+     // connect to remote
+     check_lg2(git_remote_connect( remote, GIT_DIRECTION_PUSH, NULL, NULL, NULL ), "Failed connecting to remote", NULL);
+
+	// Build the refspec
+	ref_spec = malloc(strlen("refs/heads/:refs/heads/") + (strlen(argv[1])*2));
+	if (ref_spec == NULL) {
+		printf("Branch creation failed due to memory issues later on\n");
+		exit(1);
+	}
+	strcpy(ref_spec, "refs/heads/");
+	strcat(ref_spec, argv[1]);
+	strcat(ref_spec, "refs/heads/");
+	strcat(ref_spec, argv[1]);
+
+
+     // add a push refspec
+    check_lg2(git_remote_add_push(repo, "origin", ref_spec), "Failed adding remote repo", NULL);
+	check_lg2(git_remote_add_fetch(repo, "origin", ref_spec), "Failed adding remote repo", NULL);
 
 	printf("Branch created\n");
 
@@ -74,5 +97,6 @@ int lg2_create_branch(git_repository *repo, int argc, char **argv) {
 	git_reference_free(branch_out);
 	git_reference_free(head);
 	free(origin_name);
+	git_remote_free(remote);
 	return err;
 }

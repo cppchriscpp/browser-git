@@ -239,7 +239,7 @@ next:
 
 out:
 	git_reference_free(remote_ref);
-	git_strarray_dispose(&remotes);
+	git_strarray_free(&remotes);
 	return error;
 }
 
@@ -251,7 +251,7 @@ int lg2_checkout(git_repository *repo, int argc, char **argv)
 	git_repository_state_t state;
 	git_annotated_commit *checkout_target = NULL;
     git_reference *head = NULL;
-    const char *ref_name;
+    char *ref_name = NULL;
 	int err = 0;
 	const char *path = ".";
 
@@ -284,13 +284,13 @@ int lg2_checkout(git_repository *repo, int argc, char **argv)
 		}
 		err = perform_checkout_ref(repo, checkout_target, args.argv[args.pos], &opts);
 
-        ref_name = malloc(strlen("refs/heads/") + strlen(argv[1]));
+        ref_name = malloc(strlen("refs/heads/") + strlen(args.argv[args.pos]));
         if (ref_name == NULL) {
             printf("Could not reset head failed due to memory issues\n");
             exit(1);
         }
         strcpy(ref_name, "refs/heads/");
-        strcat(ref_name, argv[1]);
+        strcat(ref_name, args.argv[args.pos]);
         check_lg2(git_reference_symbolic_create(&head, repo, "HEAD", ref_name, 1, "Switching to new branch"), "Failed pointing HEAD at new branch", NULL);
 
 	}
@@ -302,3 +302,4 @@ cleanup:
 
 	return err;
 }
+
