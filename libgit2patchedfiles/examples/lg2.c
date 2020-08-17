@@ -17,6 +17,7 @@ struct {
 	{ "clone",        lg2_clone,        0 },
 	{ "commit",       lg2_commit,       1 },
 	{ "config",       lg2_config,       1 },
+	{ "create-branch",lg2_create_branch,1 },
 	{ "describe",     lg2_describe,     1 },
 	{ "diff",         lg2_diff,         1 },
 	{ "fetch",        lg2_fetch,        1 },
@@ -30,6 +31,7 @@ struct {
 	{ "merge",        lg2_merge,        1 },
 	{ "push",         lg2_push,        1  },
 	{ "remote",       lg2_remote,       1 },
+//	{ "revert",       lg2_revert,       1 }, // Not implemented yet
 	{ "rev-list",     lg2_rev_list,     1 },
 	{ "rev-parse",    lg2_rev_parse,    1 },
 	{ "show-index",   lg2_show_index,   0 },
@@ -46,7 +48,7 @@ static int run_command(git_command_fn fn, git_repository *repo, struct args_info
 	error = fn(repo, args.argc - args.pos, &args.argv[args.pos]);
 	if (error < 0) {
 		if (git_error_last() == NULL)
-			fprintf(stderr, "Error without message");
+			fprintf(stderr, "Error without message\n");
 		else
 			fprintf(stderr, "Bad news:\n %s\n", git_error_last()->message);
 	}

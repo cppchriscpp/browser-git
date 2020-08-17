@@ -1,29 +1,37 @@
 {
-    "name": "wasm-git",
-    "version": "0.0.2",
-    "author": {
-        "name": "Peter Salomonsen",
-        "url": "https://petersalomonsen.com"
-    },
-    "repository": {
-        "url": "https://github.com/petersalomonsen/wasm-git"
-    },
-    "files": [
-        "lg2.js",
-        "lg2.wasm",
-        "README.md"
-    ],
-    "scripts": {
-        "test": "mocha",
-        "test-browser": "karma start --single-run --browsers ChromeHeadless karma.conf.js"
-    },
-    "devDependencies": {
-        "cgi": "^0.3.1",
-        "chai": "^4.2.0",
-        "karma": "^5.0.5",
-        "karma-chai": "^0.1.0",
-        "karma-chrome-launcher": "^3.1.0",
-        "karma-mocha": "^2.0.1",
-        "mocha": "^7.1.1"
-    }
+  "name": "browser-git",
+  "version": "0.0.0-development",
+  "author": {
+    "name": "cppchrispp",
+    "url": "https://cpprograms.net"
+  },
+  "repository": {
+    "url": "https://github.com/cppchriscpp/browser-git"
+  },
+  "files": [
+    "lg2.js",
+    "lg2.wasm",
+    "README.md"
+  ],
+  "scripts": {
+    "test": "mocha",
+    "test-browser": "karma start --single-run --browsers ChromeHeadless karma.conf.js",
+    "build": "npm run patch && cd emscriptenbuild && ./build.sh",
+    "build-release": "npm run patch && cd emscriptenbuild && ./build.sh Release",
+    "patch": "cp -r ./libgit2patchedfiles/* ./libgit2",
+    "semantic-release": "semantic-release"
+  },
+  "devDependencies": {
+    "cgi": "^0.3.1",
+    "chai": "^4.2.0",
+    "karma": "^5.0.5",
+    "karma-chai": "^0.1.0",
+    "karma-chrome-launcher": "^3.1.0",
+    "karma-mocha": "^2.0.1",
+    "mocha": "^7.1.1",
+    "semantic-release": "^17.1.1"
+  },
+  "release": {
+    "branches": ["master"]
+  }
 }

@@ -25,7 +25,7 @@
  *
  * This does have:
  *
- * - Example of push to origin/master
+ * - Example of push to a named origin, or "master" if not specified.
  * 
  */
 
@@ -33,7 +33,9 @@
 int lg2_push(git_repository *repo, int argc, char **argv) {
 	git_push_options options;
 	git_remote* remote = NULL;
-	char *refspec = "refs/heads/master";
+	git_reference* repo_head;
+	const char *current_branch_name;
+	char *refspec;// = "refs/heads/master";
 	const git_strarray refspecs = {
 		&refspec,
 		1
@@ -45,12 +47,27 @@ int lg2_push(git_repository *repo, int argc, char **argv) {
 		return -1;
 	}
 
+	check_lg2(git_repository_head(&repo_head, repo), "Failed getting repository head", NULL);
+	check_lg2(git_branch_name(&current_branch_name, repo_head), "Failed getting current branch name", NULL);
+	refspec = malloc(strlen("refs/heads/") + strlen(current_branch_name));
+
+	if (refspec == NULL) {
+		git_reference_free(repo_head);
+		printf("Failed allocating memory for branch name\n");
+		return -1;
+	}
+	strcpy(refspec, "refs/heads/");
+	strcat(refspec, current_branch_name);
+	fprintf(stdout, "DEBUG BRANCH NAME %s\n", current_branch_name);
+
 	check_lg2(git_remote_lookup(&remote, repo, "origin" ), "Unable to lookup remote", NULL);
 	
 	check_lg2(git_push_options_init(&options, GIT_PUSH_OPTIONS_VERSION ), "Error initializing push", NULL);
 
 	check_lg2(git_remote_push(remote, &refspecs, &options), "Error pushing", NULL);
 
+	free(refspec);
+	git_reference_free(repo_head);
 	printf("pushed\n");
 	return 0;
 }
