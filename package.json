@@ -15,7 +15,10 @@
     ],
     "scripts": {
         "test": "mocha",
-        "test-browser": "karma start --single-run --browsers ChromeHeadless karma.conf.js"
+        "test-browser": "karma start --single-run --browsers ChromeHeadless karma.conf.js",
+        "build": "npm run patch && cd emscriptenbuild && ./build.sh",
+        "build-release": "npm run patch && cd emscriptenbuild && ./build.sh Release",
+        "patch": "cp -r ./libgit2patchedfiles/* ./libgit2"
     },
     "devDependencies": {
         "cgi": "^0.3.1",
