@@ -13,11 +13,11 @@ install:
   - source ./emsdk/emsdk_env.sh
   - npm run build-release
 
-script:
+  script:
 - |
   npm run test
   npm run test-browser
-  cp package.json ./emscriptenbuild/examples && cp COPYING ./emscriptenbuild/examples && cp README.md ./emscriptenbuild/examples && cd ./emscriptenbuild/examples && npm run semantic-release
+  npm run semantic-release
 
 notifications:
   email:
