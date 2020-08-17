@@ -1,12 +1,12 @@
 {
-    "name": "wasm-git",
-    "version": "0.0.2",
+    "name": "browser-git",
+    "version": "0.0.1-semantically-released",
     "author": {
-        "name": "Peter Salomonsen",
-        "url": "https://petersalomonsen.com"
+        "name": "cppchrispp",
+        "url": "https://cpprograms.net"
     },
     "repository": {
-        "url": "https://github.com/petersalomonsen/wasm-git"
+        "url": "https://github.com/cppchriscpp/browser-git"
     },
     "files": [
         "lg2.js",

@@ -10,7 +10,7 @@ GIT for the browser using [libgit2](https://libgit2.org/) compiled to WebAssembl
 This is forked off of [wasm-git](https://github.com/petersalomonsen/wasm-git) by [petersalomonsen](https://github.com/petersalomonsen/wasm-git/commits?author=petersalomonsen).
 
 That repo is a lot more clean and less hacky - I needed a few new features, and kinda just slapped them in as fast as I could. I also don't plan on keeping this up to date
-with mainline right now.
+with mainline right now. I also am not keeping nodejs support working.
 
 I strongly recommend checking out his version. Credit goes to him for figuring out how to compile this thing with emscripten and making it all work. It's seriously impressive.
 
