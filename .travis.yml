@@ -13,8 +13,7 @@ install:
   - source ./emsdk/emsdk_env.sh
   - npm run build-release
 
-  script:
-- |
+script: |
   npm run test
   npm run test-browser
   npm run semantic-release
