@@ -18,3 +18,9 @@ script:
   npm run test
   npm run test-browser
   cp package.json ./emscriptenbuild/examples && cp COPYING ./emscriptenbuild/examples && cp README.md ./emscriptenbuild/examples && cd ./emscriptenbuild/examples && npm run semantic-release
+
+notifications:
+  email:
+    on_success: never
+    on_failure: change
+    if: branch = master

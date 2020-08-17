@@ -32,6 +32,9 @@
     "semantic-release": "^17.1.1"
   },
   "release": {
-    "branches": ["master"]
+    "branches": ["master"],
+    "verifyConditions": {
+      "path": "./node_modules/semantic-release/src/lib/plugin-noop.js"
+    }  
   }
 }
