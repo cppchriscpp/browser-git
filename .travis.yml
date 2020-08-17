@@ -12,7 +12,6 @@ install:
   - cd ..
   - source ./emsdk/emsdk_env.sh
   - npm run build
-  - cd ..
 
 script:
 - |
