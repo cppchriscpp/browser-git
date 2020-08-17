@@ -12,6 +12,8 @@ This is forked off of [wasm-git](https://github.com/petersalomonsen/wasm-git) by
 That repo is a lot more clean and less hacky - I needed a few new features, and kinda just slapped them in as fast as I could. I also don't plan on keeping this up to date
 with mainline right now. I also am not keeping nodejs support working.
 
+I will try to keep major breaking changes to major releases (eg if I released 2.0.0 that might break) - but I make no promises!
+
 I strongly recommend checking out his version. Credit goes to him for figuring out how to compile this thing with emscripten and making it all work. It's seriously impressive.
 
 ## Added features
@@ -31,14 +33,23 @@ The sources for the demo can be found in the [githttpserver](https://github.com/
 
 _Note_: The url above is Peter Salomonsen's original version. If you want to try it with new features, run the copy in the repo.
 
+# CDN Build
+
+There are some lovely cdns that host anything committed to npmjs.com for you automatically! You can use jsdelivr to get a stable version of the
+package. 
+
+You can use this to get the latest 1.x release: https://cdn.jsdelivr.net/npm/browser-git/1.x.x -- This should work for local development and most projects.
+
+Note that the 1.x.x in the path will make it less cache-friendly. If you use this on a production site, consider using the full version instead. (eg 1.0.1)
+
 # Example WebWorker with pre built binaries
 
 For running in the browser you should have your git interaction code in a [webworker](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers). This is because of the use of synchronous http requests and long running operations that would block if running on the main thread.
 
-Here's an example of a simple webworker that uses pre-built binaries from https://unpkg.com/wasm-git@0.0.1/
+Here's an example of a simple webworker that uses pre-built binaries from https://cdn.jsdelivr.net/npm/browser-git@1.x.x/
 
 ```js
-const BROWSER_GIT_URL = 'https://cdn.jsdelivr.net/npm/browser-git@1.0.x/';
+const BROWSER_GIT_URL = 'https://cdn.jsdelivr.net/npm/browser-git/1.x.x/';
 var Module = {
     locateFile: function(s) {
       return BROWSER_GIT_URL + s;
