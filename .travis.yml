@@ -17,4 +17,4 @@ script:
 - |
   npm run test
   npm run test-browser
-  npm run semantic-release
+  cp package.json ./emscriptenbuild/examples && cp COPYING ./emscriptenbuild/examples && cp README.md ./emscriptenbuild/examples && cd ./emscriptenbuild/examples && npm run semantic-release

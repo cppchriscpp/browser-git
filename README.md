@@ -38,13 +38,14 @@ For running in the browser you should have your git interaction code in a [webwo
 Here's an example of a simple webworker that uses pre-built binaries from https://unpkg.com/wasm-git@0.0.1/
 
 ```js
+const BROWSER_GIT_URL = 'https://cdn.jsdelivr.net/npm/browser-git@1.0.x/';
 var Module = {
     locateFile: function(s) {
-      return 'https://unpkg.com/wasm-git@0.0.2/' + s;
+      return BROWSER_GIT_URL + s;
     }
 };
 
-importScripts('https://unpkg.com/wasm-git@0.0.2/lg2.js');
+importScripts(BROWSER_GIT_URL + 'lg2.js');
 
 Module.onRuntimeInitialized = () => {
     const lg = Module;
