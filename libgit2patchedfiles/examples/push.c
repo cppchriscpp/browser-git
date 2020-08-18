@@ -58,7 +58,6 @@ int lg2_push(git_repository *repo, int argc, char **argv) {
 	}
 	strcpy(refspec, "refs/heads/");
 	strcat(refspec, current_branch_name);
-	fprintf(stdout, "DEBUG BRANCH NAME %s\n", current_branch_name);
 
 	check_lg2(git_remote_lookup(&remote, repo, "origin" ), "Unable to lookup remote", NULL);
 	
